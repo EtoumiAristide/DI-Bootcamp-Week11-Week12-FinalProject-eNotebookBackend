@@ -17,7 +17,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class Ville implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long Id;
 

@@ -17,7 +17,7 @@ import java.util.List;
 public class Specialite implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(columnDefinition = "VARCHAR(50)")

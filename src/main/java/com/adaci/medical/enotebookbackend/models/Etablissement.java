@@ -17,11 +17,15 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Etablissement extends Personne implements Serializable {
 
-    @Basic
     @Column(columnDefinition = "VARCHAR(100)")
     @NotNull(message = "Le nom de l'établissement est obligatoire")
     @NotBlank(message = "Le nom de l'établissement ne peut être vide")
     private String nom;
+
+    @Column(name = "autorisation_activite", columnDefinition = "VARCHAR(100)")
+    @NotNull(message = "Le numero d'autorisation est obligatoire")
+    @NotBlank(message = "Le numero d'autorisation ne peut être vide")
+    private String autorisationActivite;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Table(name = "antecedent_medical")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

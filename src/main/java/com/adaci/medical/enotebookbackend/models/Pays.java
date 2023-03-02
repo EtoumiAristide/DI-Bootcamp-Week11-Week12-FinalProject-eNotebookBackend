@@ -17,7 +17,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Pays implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(columnDefinition = "VARCHAR(50)")
     @NotNull(message = "Le nom du pays est obligatoire")

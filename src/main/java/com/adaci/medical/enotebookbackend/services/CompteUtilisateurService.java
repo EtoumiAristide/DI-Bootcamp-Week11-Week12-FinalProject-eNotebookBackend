@@ -2,7 +2,7 @@ package com.adaci.medical.enotebookbackend.services;
 
 import com.adaci.medical.enotebookbackend.exceptions.ResourceNotFoundException;
 import com.adaci.medical.enotebookbackend.models.CompteUtilisateur;
-import com.adaci.medical.enotebookbackend.models.SessionType;
+import com.adaci.medical.enotebookbackend.enums.SessionType;
 import com.adaci.medical.enotebookbackend.models.SessionUtilisateur;
 import com.adaci.medical.enotebookbackend.repositories.CompteUtilisateurRepository;
 import com.adaci.medical.enotebookbackend.repositories.SessionUtilisateurRepository;

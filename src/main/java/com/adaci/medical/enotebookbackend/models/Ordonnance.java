@@ -17,7 +17,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Ordonnance implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull(message = "Le libéllé de l'ordonnance est obligatoire")

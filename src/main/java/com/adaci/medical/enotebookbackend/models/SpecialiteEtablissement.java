@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "specialite_etablissement")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

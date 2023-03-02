@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "type_etablissement")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class TypeEtablissement implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(columnDefinition = "VARCHAR(150)")

@@ -34,8 +34,8 @@ public class Medecin extends Physique implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    public Medecin(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Timestamp dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String matricule, Date datePriseService) {
-        super(tel1, tel2, tel3, email, nom, prenoms, dateNaissance, lieuNaissance, nomPrenomPere, nomPrenomMere);
+    public Medecin(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Date dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String nomPersonneUrgence, String contactPersonneUrgence, String matricule, Date datePriseService) {
+        super(tel1, tel2, tel3, email, nom, prenoms, dateNaissance, lieuNaissance, nomPrenomPere, nomPrenomMere, nomPersonneUrgence, contactPersonneUrgence);
         this.matricule = matricule;
         this.datePriseService = datePriseService;
     }

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "compte_utilisateur")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,7 @@ import java.util.List;
 public class CompteUtilisateur implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull(message = "Le login est obligatoire")
@@ -27,7 +28,6 @@ public class CompteUtilisateur implements Serializable {
 
     @NotNull(message = "le mot de passe est obligatoire")
     @NotBlank(message = "Le mot de passe ne peut être vide")
-    @Min(value = 5, message = "Le mot de passe doit contenir minimum 5 caractères")
     private String password;
 
     @NotNull(message = "La phrase de recupération 1 est obligatoire")

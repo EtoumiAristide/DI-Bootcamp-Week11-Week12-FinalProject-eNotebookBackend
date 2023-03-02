@@ -1,4 +1,4 @@
-package com.adaci.medical.enotebookbackend.models;
+package com.adaci.medical.enotebookbackend.enums;
 
 public enum SessionType {
     CONNECTED,

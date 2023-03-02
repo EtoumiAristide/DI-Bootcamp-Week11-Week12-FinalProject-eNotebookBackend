@@ -15,7 +15,7 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 public class Traitement implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
 

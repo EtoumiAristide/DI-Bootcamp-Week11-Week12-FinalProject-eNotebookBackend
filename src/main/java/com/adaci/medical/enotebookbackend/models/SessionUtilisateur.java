@@ -1,13 +1,13 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.adaci.medical.enotebookbackend.enums.SessionType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
 
 @Entity
+@Table(name = "session_utilisateur")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +16,7 @@ import java.util.Date;
 public class SessionUtilisateur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Enumerated(EnumType.STRING)
