@@ -1,7 +1,10 @@
 package com.adaci.medical.enotebookbackend.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -29,4 +32,7 @@ public class Patient extends Physique implements Serializable {
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Consultation> consultationList;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AntecedentMedical> antecedentMedicalList;
 }

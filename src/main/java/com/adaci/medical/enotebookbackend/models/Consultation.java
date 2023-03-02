@@ -26,8 +26,8 @@ public class Consultation implements Serializable {
     private Date date;
 
     @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Le libéllé de la consultation est obligatoire")
+    @NotEmpty(message = "La libéllé de la consultation ne peut être vide")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

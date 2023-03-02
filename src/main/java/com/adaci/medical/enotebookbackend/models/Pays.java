@@ -20,9 +20,9 @@ public class Pays implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull
-    @NotBlank
-    private String libelle;
+    @NotNull(message = "Le nom du pays est obligatoire")
+    @NotBlank(message = "Le nom du pays ne peut être vide")
+    private String nom;
     @Column(columnDefinition = "CHAR(5)")
     private String code;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

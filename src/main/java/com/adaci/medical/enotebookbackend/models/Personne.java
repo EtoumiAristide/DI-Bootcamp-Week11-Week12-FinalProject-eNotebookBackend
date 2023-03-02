@@ -24,8 +24,8 @@ public abstract class Personne implements Serializable {
     private long id;
 
     @Column(name = "tel1", columnDefinition = "CHAR(15)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le numero de téléphone 1 est obligatoire")
+    @NotBlank(message = "Le numero de téléphone 1 ne peut être vide")
     private String tel1;
 
     @Column(name = "tel2", nullable = true, length = 15)
@@ -34,7 +34,7 @@ public abstract class Personne implements Serializable {
     @Column(name = "tel3", nullable = true, length = 15)
     private String tel3;
 
-    @Email
+    @Email(message = "L'adresse email est incorrecte")
     @Column(name = "email", nullable = true, length = 50)
     private String email;
 
@@ -48,6 +48,9 @@ public abstract class Personne implements Serializable {
 
     @OneToMany(mappedBy = "personne", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Adresse> adresseList;
+
+    @OneToMany(mappedBy = "personne", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CompteUtilisateur> compteUtilisateurList;
 
     public Personne(String tel1, String tel2, String tel3, String email) {
         this.tel1 = tel1;

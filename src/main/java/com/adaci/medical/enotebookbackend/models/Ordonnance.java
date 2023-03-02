@@ -20,8 +20,8 @@ public class Ordonnance implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le libéllé de l'ordonnance est obligatoire")
+    @NotBlank(message = "Le libéllé de l'ordonnance ne peut être vide")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

@@ -21,8 +21,8 @@ public class Symptome implements Serializable {
     private long id;
 
     @Column(columnDefinition = "VARCHAR")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le libéllé du symptome est obligatoire")
+    @NotBlank(message = "Le libéllé du symptome ne peut être vide")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

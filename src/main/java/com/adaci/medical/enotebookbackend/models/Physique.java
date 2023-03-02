@@ -18,29 +18,41 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Physique extends Personne implements Serializable {
     @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le nom de la personne est obligatoire")
+    @NotBlank(message = "Le nom de la personne ne peut être vide")
     private String nom;
     @Column(columnDefinition = "VARCHAR(150)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le(s) prénom(s) de la personne est obligatoire")
+    @NotBlank(message = "Le(s) prénom(s) de la personne ne peut être vide")
     private String prenoms;
 
     @Column(name = "date_naissance", columnDefinition = "DATE")
-    @NotNull
-    @NotBlank
-    private Timestamp dateNaissance;
+    @NotNull(message = "La date de naissance la personne est obligatoire")
+    @NotBlank(message = "La date de naissance la personne ne peut être vide")
+    @Temporal(TemporalType.DATE)
+    private Date dateNaissance;
 
     @Column(name = "lieu_naissance", columnDefinition = "VARCHAR")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le lieu de naissance de la personne est obligatoire")
+    @NotBlank(message = "La lieu de naissance de la personne ne peut être vide")
     private String lieuNaissance;
-    @Basic
+
     @Column(name = "nom_prenom_pere")
     private String nomPrenomPere;
-    @Basic
+
     @Column(name = "nom_prenom_mere")
     private String nomPrenomMere;
+
+    @Column(name = "nom_personne_urgence")
+    @NotNull(message = "La personne à contacter en cas d'urgence est obligatoire")
+    @NotBlank(message = "La personne à contacter en cas d'urgence ne peut être vide")
+    private String nomPersonneUrgence;
+
+    @Column(name = "contact_personne_urgence")
+    @NotNull(message = "Le numero de la personne à contacter en cas d'urgence est obligatoire")
+    @NotBlank(message = "Le numero de la personne à contacter en cas d'urgence ne peut être vide")
+    private String contactPersonneUrgence;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -49,7 +61,7 @@ public abstract class Physique extends Personne implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    public Physique(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Timestamp dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere) {
+    public Physique(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Date dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String nomPersonneUrgence, String contactPersonneUrgence) {
         super(tel1, tel2, tel3, email);
         this.nom = nom;
         this.prenoms = prenoms;
@@ -57,5 +69,7 @@ public abstract class Physique extends Personne implements Serializable {
         this.lieuNaissance = lieuNaissance;
         this.nomPrenomPere = nomPrenomPere;
         this.nomPrenomMere = nomPrenomMere;
+        this.nomPersonneUrgence = nomPersonneUrgence;
+        this.contactPersonneUrgence = contactPersonneUrgence;
     }
 }

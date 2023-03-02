@@ -6,9 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -16,15 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Ville implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class AntecedentMedical implements Serializable {
     @Id
-    private long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @NotNull(message = "Le libéllé de l'antécédent est obligatoire")
+    @NotBlank(message = "Le libéllé de l'antécédent ne peut être vide")
+    private String libelle;
 
-    @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull(message = "Le nom de la ville est obligatoire")
-    @NotBlank(message = "Le nom de la ville ne peut être vide")
-    private String nom;
+    @NotNull(message = "La date de l'antécédent est obligatoire")
+    @NotBlank(message = "La date de l'antécédent ne peut être vide")
+    private Date date;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
@@ -35,8 +35,5 @@ public class Ville implements Serializable {
     private Date updatedAt;
 
     @ManyToOne
-    private Pays pays;
-
-    @OneToMany(mappedBy = "ville")
-    private List<Commune> communeList;
+    private Patient patient;
 }

@@ -21,8 +21,8 @@ public class Specialite implements Serializable {
     private long id;
 
     @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le libéllé de la spécialité est obligatoire")
+    @NotBlank(message = "Le libéllé de la spécialité ne peut être vide")
     private String libelle;
 
     @OneToMany(mappedBy = "specialite", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

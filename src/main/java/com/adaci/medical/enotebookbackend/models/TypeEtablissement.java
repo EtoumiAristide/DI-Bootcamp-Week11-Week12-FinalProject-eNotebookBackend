@@ -2,6 +2,7 @@ package com.adaci.medical.enotebookbackend.models;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -21,7 +22,8 @@ public class TypeEtablissement implements Serializable {
     private long id;
 
     @Column(columnDefinition = "VARCHAR(150)")
-    @NotNull
+    @NotNull(message = "Le libéllé du type établissement est obligatoire")
+    @NotEmpty(message = "Le libéllé du type établissement ne peut être vide")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

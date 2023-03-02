@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -16,15 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Ville implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class TypeCompte implements Serializable {
     @Id
-    private long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull(message = "Le nom de la ville est obligatoire")
-    @NotBlank(message = "Le nom de la ville ne peut être vide")
-    private String nom;
+    @NotNull(message = "Le libéllé du type de compte est obligatoire")
+    @NotBlank(message = "Le libéllé du type de compte ne peut être vide")
+    private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,9 +32,6 @@ public class Ville implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @ManyToOne
-    private Pays pays;
-
-    @OneToMany(mappedBy = "ville")
-    private List<Commune> communeList;
+    @OneToMany(mappedBy = "typeCompte", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CompteUtilisateur> compteUtilisateurList;
 }

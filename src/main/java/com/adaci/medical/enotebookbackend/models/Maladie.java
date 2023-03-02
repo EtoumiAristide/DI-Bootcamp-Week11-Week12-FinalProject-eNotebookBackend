@@ -21,8 +21,8 @@ public class Maladie implements Serializable {
     private long id;
 
     @Column(columnDefinition = "VARCHAR(150)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "La date de l'antécédent est obligatoire")
+    @NotBlank(message = "La date de l'antécédent ne peut être vide")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

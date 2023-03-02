@@ -16,14 +16,14 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class Medecin extends Physique implements Serializable {
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le matricule du medeci est obligatoire")
+    @NotBlank(message = "Le matricule du medecin ne peut être vide")
     @Column(columnDefinition = "VARCHAR(50)")
     private String matricule;
 
     @Column(name = "date_prise_service")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "La date de prise de service du medecin est obligatoire")
+    @NotBlank(message = "La date de prise de service du medecin ne peut être vide")
     private Date datePriseService;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

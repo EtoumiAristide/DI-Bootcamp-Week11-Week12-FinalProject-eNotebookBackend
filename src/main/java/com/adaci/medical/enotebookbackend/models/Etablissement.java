@@ -19,8 +19,8 @@ public class Etablissement extends Personne implements Serializable {
 
     @Basic
     @Column(columnDefinition = "VARCHAR(100)")
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Le nom de l'établissement est obligatoire")
+    @NotBlank(message = "Le nom de l'établissement ne peut être vide")
     private String nom;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

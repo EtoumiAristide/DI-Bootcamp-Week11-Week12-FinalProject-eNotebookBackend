@@ -21,9 +21,9 @@ public class Commune implements Serializable {
     private long id;
 
     @Column(columnDefinition = "VARCHAR(50)")
-    @NotNull
-    @NotBlank
-    private String libelle;
+    @NotNull(message = "Le nom de la commune est obligatoire")
+    @NotBlank(message = "Le nom de la commune ne peut être vide")
+    private String nom;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
