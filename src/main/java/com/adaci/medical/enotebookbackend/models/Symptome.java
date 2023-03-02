@@ -20,7 +20,7 @@ public class Symptome implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR NOT NULL")
+    @Column(columnDefinition = "VARCHAR")
     @NotNull
     @NotBlank
     private String libelle;

@@ -19,11 +19,11 @@ public class Pays implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     @NotNull
     @NotBlank
     private String libelle;
-    @Column(columnDefinition = "CHAR(5) NULL")
+    @Column(columnDefinition = "CHAR(5)")
     private String code;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

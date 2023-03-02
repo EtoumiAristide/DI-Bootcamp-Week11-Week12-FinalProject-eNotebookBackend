@@ -17,7 +17,7 @@ public class Traitement implements Serializable {
     @Id
     private long id;
 
-    @Column(columnDefinition = "VARCHAR(150) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(150)")
     private String libelle;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)

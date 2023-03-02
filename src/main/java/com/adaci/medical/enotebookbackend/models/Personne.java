@@ -23,7 +23,7 @@ public abstract class Personne implements Serializable {
     @Column(nullable = false)
     private long id;
 
-    @Column(name = "tel1", columnDefinition = "CHAR(15) NOT NULL")
+    @Column(name = "tel1", columnDefinition = "CHAR(15)")
     @NotNull
     @NotBlank
     private String tel1;

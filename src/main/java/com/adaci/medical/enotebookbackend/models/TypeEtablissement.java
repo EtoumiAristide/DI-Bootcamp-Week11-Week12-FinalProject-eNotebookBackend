@@ -2,6 +2,7 @@ package com.adaci.medical.enotebookbackend.models;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,8 +20,8 @@ public class TypeEtablissement implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Basic
-    @Column(columnDefinition = "VARCHAR(150) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(150)")
+    @NotNull
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")

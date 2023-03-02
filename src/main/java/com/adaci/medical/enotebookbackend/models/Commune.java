@@ -20,7 +20,7 @@ public class Commune implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     @NotNull
     @NotBlank
     private String libelle;

@@ -18,7 +18,7 @@ import java.util.List;
 public class Medecin extends Physique implements Serializable {
     @NotNull
     @NotBlank
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     private String matricule;
 
     @Column(name = "date_prise_service")

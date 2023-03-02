@@ -25,7 +25,7 @@ public class Consultation implements Serializable {
     @NotBlank
     private Date date;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     @NotNull
     @NotEmpty
     private String libelle;

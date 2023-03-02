@@ -17,21 +17,21 @@ import java.util.Date;
 @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Physique extends Personne implements Serializable {
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     @NotNull
     @NotBlank
     private String nom;
-    @Column(columnDefinition = "VARCHAR(150) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(150)")
     @NotNull
     @NotBlank
     private String prenoms;
 
-    @Column(name = "date_naissance", columnDefinition = "DATE NOT NULL")
+    @Column(name = "date_naissance", columnDefinition = "DATE")
     @NotNull
     @NotBlank
     private Timestamp dateNaissance;
 
-    @Column(name = "lieu_naissance", columnDefinition = "VARCHAR NOT NULL")
+    @Column(name = "lieu_naissance", columnDefinition = "VARCHAR")
     @NotNull
     @NotBlank
     private String lieuNaissance;

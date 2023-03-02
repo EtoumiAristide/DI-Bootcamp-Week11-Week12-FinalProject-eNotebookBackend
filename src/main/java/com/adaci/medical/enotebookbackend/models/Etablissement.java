@@ -18,7 +18,7 @@ import java.util.List;
 public class Etablissement extends Personne implements Serializable {
 
     @Basic
-    @Column(columnDefinition = "VARCHAR(100) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(100)")
     @NotNull
     @NotBlank
     private String nom;
@@ -36,7 +36,6 @@ public class Etablissement extends Personne implements Serializable {
         this.nom = nom;
     }
 
-    @NotNull
     @ManyToOne
     private TypeEtablissement typeEtablissement;
 

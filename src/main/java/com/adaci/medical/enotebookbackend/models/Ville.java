@@ -18,7 +18,7 @@ public class Ville implements Serializable {
     @Id
     private long Id;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(columnDefinition = "VARCHAR(50)")
     private String libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
