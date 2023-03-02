@@ -1,4 +1,4 @@
-# DI-Bootcamp-Week11-Week12-FinalProject-eNotebookBackend
+# eNotebookBackend
 
 This is my Bootcamp Final Project on DI Plateform
 
