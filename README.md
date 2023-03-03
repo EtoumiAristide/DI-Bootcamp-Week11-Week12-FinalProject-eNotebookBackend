@@ -1,4 +1,4 @@
-# eNotebook Sante Backend
+# eNotebook Sante Backend App
 
 This is my Bootcamp Final Project on DI Plateform
 
