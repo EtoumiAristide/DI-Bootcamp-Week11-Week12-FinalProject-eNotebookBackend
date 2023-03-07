@@ -1,5 +1,6 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,8 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CompteUtilisateur implements Serializable {
 
     @Id
@@ -30,13 +31,13 @@ public class CompteUtilisateur implements Serializable {
     @NotBlank(message = "Le mot de passe ne peut être vide")
     private String password;
 
-    @NotNull(message = "La phrase de recupération 1 est obligatoire")
-    @NotBlank(message = "La phrase de recupération 1 ne peut être vide")
+    //@NotNull(message = "La phrase de recupération 1 est obligatoire")
+    //@NotBlank(message = "La phrase de recupération 1 ne peut être vide")
     @Column(name = "phrase_recup1")
     private String phraseRecup1;
 
-    @NotNull(message = "La reponse de recupération 1 est obligatoire")
-    @NotBlank(message = "La reponse de recupération 1 ne peut être vide")
+    //@NotNull(message = "La reponse de recupération 1 est obligatoire")
+    //@NotBlank(message = "La reponse de recupération 1 ne peut être vide")
     @Column(name = "reponse_recup1")
     private String reponseRecup1;
 
@@ -55,12 +56,25 @@ public class CompteUtilisateur implements Serializable {
     @Column(name = "authentification_double_facteur")
     private boolean authentificationDoubleFacteur;
 
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
+    private Date createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
+    private Date updatedAt;
+
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = false)
     private TypeCompte typeCompte;
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     private Personne personne;
 
     @OneToMany(mappedBy = "compteUtilisateur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<SessionUtilisateur> sessionUtilisateurList;
 }

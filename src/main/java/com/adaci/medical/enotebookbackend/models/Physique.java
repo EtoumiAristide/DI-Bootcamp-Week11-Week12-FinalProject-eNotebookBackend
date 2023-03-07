@@ -1,12 +1,18 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -14,8 +20,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@ToString
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public abstract class Physique extends Personne implements Serializable {
     @Column(columnDefinition = "VARCHAR(50)")
     @NotNull(message = "Le nom de la personne est obligatoire")
@@ -27,14 +33,14 @@ public abstract class Physique extends Personne implements Serializable {
     private String prenoms;
 
     @Column(name = "date_naissance", columnDefinition = "DATE")
-    @NotNull(message = "La date de naissance la personne est obligatoire")
-    @NotBlank(message = "La date de naissance la personne ne peut être vide")
+    //@NotNull(message = "La date de naissance la personne est obligatoire")
+    //@NotBlank(message = "La date de naissance la personne ne peut être vide")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
 
     @Column(name = "lieu_naissance", columnDefinition = "VARCHAR")
-    @NotNull(message = "Le lieu de naissance de la personne est obligatoire")
-    @NotBlank(message = "La lieu de naissance de la personne ne peut être vide")
+    //@NotNull(message = "Le lieu de naissance de la personne est obligatoire")
+    //@NotBlank(message = "La lieu de naissance de la personne ne peut être vide")
     private String lieuNaissance;
 
     @Column(name = "nom_prenom_pere")
@@ -44,21 +50,23 @@ public abstract class Physique extends Personne implements Serializable {
     private String nomPrenomMere;
 
     @Column(name = "nom_personne_urgence")
-    @NotNull(message = "La personne à contacter en cas d'urgence est obligatoire")
-    @NotBlank(message = "La personne à contacter en cas d'urgence ne peut être vide")
+    //@NotNull(message = "La personne à contacter en cas d'urgence est obligatoire")
+    //@NotBlank(message = "La personne à contacter en cas d'urgence ne peut être vide")
     private String nomPersonneUrgence;
 
     @Column(name = "contact_personne_urgence")
-    @NotNull(message = "Le numero de la personne à contacter en cas d'urgence est obligatoire")
-    @NotBlank(message = "Le numero de la personne à contacter en cas d'urgence ne peut être vide")
+    //@NotNull(message = "Le numero de la personne à contacter en cas d'urgence est obligatoire")
+    //@NotBlank(message = "Le numero de la personne à contacter en cas d'urgence ne peut être vide")
     private String contactPersonneUrgence;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedAt;
 
     public Physique(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Date dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String nomPersonneUrgence, String contactPersonneUrgence) {

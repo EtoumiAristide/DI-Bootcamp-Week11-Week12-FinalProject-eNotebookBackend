@@ -1,8 +1,8 @@
 package com.adaci.medical.enotebookbackend.services;
 
+import com.adaci.medical.enotebookbackend.enums.SessionType;
 import com.adaci.medical.enotebookbackend.exceptions.ResourceNotFoundException;
 import com.adaci.medical.enotebookbackend.models.CompteUtilisateur;
-import com.adaci.medical.enotebookbackend.enums.SessionType;
 import com.adaci.medical.enotebookbackend.models.SessionUtilisateur;
 import com.adaci.medical.enotebookbackend.repositories.CompteUtilisateurRepository;
 import com.adaci.medical.enotebookbackend.repositories.SessionUtilisateurRepository;
@@ -62,12 +62,10 @@ public class CompteUtilisateurService implements ApiContract<CompteUtilisateur> 
     public CompteUtilisateur connexionUtilisateur(String login, String password) throws ResourceNotFoundException {
         Optional<CompteUtilisateur> compteUtilisateur = compteUtilisateurRepository.findByLoginAndPassword(login, password);
 
-
         if (compteUtilisateur.isPresent()) {
             //On créé la session utilisateur
             SessionUtilisateur sessionUtilisateur = new SessionUtilisateur(SessionType.CONNECTED);
             sessionUtilisateurRepository.save(sessionUtilisateur);
-
             return compteUtilisateur.get();
 
         } else {

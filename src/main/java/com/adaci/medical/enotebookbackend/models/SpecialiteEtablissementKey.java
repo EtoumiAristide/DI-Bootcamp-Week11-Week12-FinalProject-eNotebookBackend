@@ -1,13 +1,16 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.Column;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.Embeddable;
+import lombok.*;
 
 import java.io.Serializable;
 
+@Embeddable
 @Data
-@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpecialiteEtablissementKey implements Serializable {
 
     @Column(name = "specialite_id")

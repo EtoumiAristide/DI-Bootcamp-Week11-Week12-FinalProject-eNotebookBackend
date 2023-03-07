@@ -1,9 +1,13 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,8 +17,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(callSuper = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Etablissement extends Personne implements Serializable {
 
     @Column(columnDefinition = "VARCHAR(100)")
@@ -27,12 +31,14 @@ public class Etablissement extends Personne implements Serializable {
     @NotBlank(message = "Le numero d'autorisation ne peut être vide")
     private String autorisationActivite;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedAt;
 
     public Etablissement(String tel1, String tel2, String tel3, String email, String nom) {
@@ -41,8 +47,10 @@ public class Etablissement extends Personne implements Serializable {
     }
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     private TypeEtablissement typeEtablissement;
 
     @OneToMany(mappedBy = "etablissement", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<SpecialiteEtablissement> specialiteEtablissementList;
 }

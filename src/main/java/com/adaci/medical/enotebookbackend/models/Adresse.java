@@ -1,5 +1,6 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,8 +12,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Adresse implements Serializable {
     @EmbeddedId
     private AdresseKey Id;
@@ -27,21 +27,25 @@ public class Adresse implements Serializable {
     @Nullable
     private String boitePostale;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedAt;
 
     @ManyToOne
     @MapsId("personneId")
     @JoinColumn(name = "personne_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Personne personne;
 
     @ManyToOne
     @MapsId("communeId")
     @JoinColumn(name = "commune_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Commune commune;
 }

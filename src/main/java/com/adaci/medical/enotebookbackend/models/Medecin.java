@@ -1,5 +1,6 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,8 +14,8 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode(callSuper = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Medecin extends Physique implements Serializable {
     @NotNull(message = "Le matricule du medeci est obligatoire")
     @NotBlank(message = "Le matricule du medecin ne peut être vide")
@@ -26,12 +27,14 @@ public class Medecin extends Physique implements Serializable {
     @NotBlank(message = "La date de prise de service du medecin ne peut être vide")
     private Date datePriseService;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedAt;
 
     public Medecin(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Date dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String nomPersonneUrgence, String contactPersonneUrgence, String matricule, Date datePriseService) {
@@ -41,8 +44,10 @@ public class Medecin extends Physique implements Serializable {
     }
 
     @OneToMany(mappedBy = "medecin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Consultation> consultationList;
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
     private SpecialiteEtablissement specialiteEtablissement;
 }
