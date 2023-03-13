@@ -35,10 +35,11 @@ public class Commune implements Serializable {
     private Date updatedAt;
 
     @ManyToOne
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     private Ville ville;
 
     @OneToMany(mappedBy = "commune", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private List<Adresse> adresseList;
 }

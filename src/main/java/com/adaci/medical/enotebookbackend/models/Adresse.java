@@ -41,11 +41,12 @@ public class Adresse implements Serializable {
     @MapsId("personneId")
     @JoinColumn(name = "personne_id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private Personne personne;
 
     @ManyToOne
     @MapsId("communeId")
     @JoinColumn(name = "commune_id")
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     private Commune commune;
 }

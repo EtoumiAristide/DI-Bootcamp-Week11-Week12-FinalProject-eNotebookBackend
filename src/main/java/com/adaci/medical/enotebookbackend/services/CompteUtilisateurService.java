@@ -1,10 +1,15 @@
 package com.adaci.medical.enotebookbackend.services;
 
+import com.adaci.medical.enotebookbackend.enums.CompteType;
 import com.adaci.medical.enotebookbackend.enums.SessionType;
 import com.adaci.medical.enotebookbackend.exceptions.ResourceNotFoundException;
 import com.adaci.medical.enotebookbackend.models.CompteUtilisateur;
+import com.adaci.medical.enotebookbackend.models.Medecin;
+import com.adaci.medical.enotebookbackend.models.Patient;
 import com.adaci.medical.enotebookbackend.models.SessionUtilisateur;
 import com.adaci.medical.enotebookbackend.repositories.CompteUtilisateurRepository;
+import com.adaci.medical.enotebookbackend.repositories.MedecinRepository;
+import com.adaci.medical.enotebookbackend.repositories.PatientRepository;
 import com.adaci.medical.enotebookbackend.repositories.SessionUtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +21,18 @@ import java.util.Optional;
 public class CompteUtilisateurService implements ApiContract<CompteUtilisateur> {
 
     private final CompteUtilisateurRepository compteUtilisateurRepository;
-    private final SessionUtilisateurRepository sessionUtilisateurRepository;
+    private final SessionUtilisateurService sessionUtilisateurService;
+    private final MedecinService medecinService;
+    private final PatientService patientService;
 
     @Autowired
-    public CompteUtilisateurService(CompteUtilisateurRepository compteUtilisateurRepository, SessionUtilisateurRepository sessionUtilisateurRepository) {
+    public CompteUtilisateurService(CompteUtilisateurRepository compteUtilisateurRepository, SessionUtilisateurService sessionUtilisateurService, MedecinService medecinService, PatientService patientService) {
         this.compteUtilisateurRepository = compteUtilisateurRepository;
-        this.sessionUtilisateurRepository = sessionUtilisateurRepository;
+        this.sessionUtilisateurService = sessionUtilisateurService;
+        this.medecinService = medecinService;
+        this.patientService = patientService;
     }
+
 
     @Override
     public List<CompteUtilisateur> findAll() {
@@ -63,10 +73,28 @@ public class CompteUtilisateurService implements ApiContract<CompteUtilisateur> 
         Optional<CompteUtilisateur> compteUtilisateur = compteUtilisateurRepository.findByLoginAndPassword(login, password);
 
         if (compteUtilisateur.isPresent()) {
+            CompteUtilisateur compteUtilisateurData = compteUtilisateur.get();
             //On créé la session utilisateur
             SessionUtilisateur sessionUtilisateur = new SessionUtilisateur(SessionType.CONNECTED);
-            sessionUtilisateurRepository.save(sessionUtilisateur);
-            return compteUtilisateur.get();
+            sessionUtilisateur.setCompteUtilisateur(compteUtilisateur.get());
+            sessionUtilisateurService.create(sessionUtilisateur);
+
+            //Assignation des informations de la personne
+            CompteType compteType = compteUtilisateurData.getTypeCompte().getLibelle();
+            switch (compteType) {
+                case MEDECIN:
+                    Medecin medecin = medecinService.findById(compteUtilisateurData.getPersonne().getId());
+                    compteUtilisateurData.setPersonne(medecin);
+                    break;
+                case PATIENT:
+                    Patient patient = patientService.findById(compteUtilisateurData.getPersonne().getId());
+                    compteUtilisateurData.setPersonne(patient);
+                    break;
+                case ADMINISTRATEUR:
+                    break;
+            }
+
+            return compteUtilisateurData;
 
         } else {
             throw new ResourceNotFoundException("Compte utilisateur non trouvé");
@@ -80,7 +108,8 @@ public class CompteUtilisateurService implements ApiContract<CompteUtilisateur> 
         if (compteUtilisateur.isPresent()) {
             //On créé la session utilisateur
             SessionUtilisateur sessionUtilisateur = new SessionUtilisateur(SessionType.DISCONNECTED);
-            sessionUtilisateurRepository.save(sessionUtilisateur);
+            sessionUtilisateur.setCompteUtilisateur(compteUtilisateur.get());
+            sessionUtilisateurService.create(sessionUtilisateur);
 
             return compteUtilisateur.get();
 

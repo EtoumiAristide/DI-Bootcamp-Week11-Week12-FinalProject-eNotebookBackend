@@ -22,6 +22,11 @@ public class TypeEtablissement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(columnDefinition = "VARCHAR(50)")
+    @NotNull(message = "Le nom simplifié du type établissement est obligatoire")
+    @NotEmpty(message = "Le nom simplifié du type établissement ne peut être vide")
+    private String nomSimplifie;
+
     @Column(columnDefinition = "VARCHAR(150)")
     @NotNull(message = "Le libéllé du type établissement est obligatoire")
     @NotEmpty(message = "Le libéllé du type établissement ne peut être vide")
@@ -39,5 +44,6 @@ public class TypeEtablissement implements Serializable {
 
     @OneToMany(mappedBy = "typeEtablissement", fetch = FetchType.LAZY)
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private List<Etablissement> etablissementList;
 }

@@ -15,8 +15,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(name = "User APi", value = "api/v1/type-compte")
 public class TypeCompteController {
-
-    private TypeCompteService typeCompteService;
+    private final TypeCompteService typeCompteService;
 
     @Autowired
     public TypeCompteController(TypeCompteService typeCompteService) {

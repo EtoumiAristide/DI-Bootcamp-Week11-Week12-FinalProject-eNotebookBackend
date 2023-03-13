@@ -1,9 +1,6 @@
 package com.adaci.medical.enotebookbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,8 +37,11 @@ public class Ville implements Serializable {
     private Date updatedAt;
 
     @ManyToOne
+    @JsonIdentityReference(alwaysAsId = false)
     private Pays pays;
 
     @OneToMany(mappedBy = "ville")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private List<Commune> communeList;
 }

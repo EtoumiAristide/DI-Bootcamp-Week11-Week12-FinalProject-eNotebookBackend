@@ -1,5 +1,11 @@
+-- Populate type_compte table
+INSERT INTO type_compte(libelle)
+    VALUES ('PATIENT'),
+           ('MEDECIN'),
+           ('ADMINISTRATEUR');
+
 -- Populate pays table
-INSERT INTO pays(nom, code) VALUES('CÔTE D''IVOIRE', '+225');
+/*INSERT INTO pays(nom, code) VALUES('CÔTE D''IVOIRE', '+225');
 
 -- Populate ville table
 INSERT INTO ville(nom, pays_id)
@@ -19,11 +25,6 @@ INSERT INTO commune(nom, ville_id)
            ('Yopougon', 1),
            ('Anyama', 1);
 
--- Populate type_compte table
-INSERT INTO type_compte(libelle)
-    VALUES ('Patient'),
-           ('Medecin'),
-           ('Administrateur');
 
 -- Populate type_etablissement table
 INSERT INTO type_etablissement(libelle)
@@ -36,3 +37,4 @@ INSERT INTO type_etablissement(libelle)
 -- A faire: Populate specialite table
 -- A faire: Populate symptome table
 -- A faire: Populate maladie table
+*/

@@ -1,6 +1,7 @@
 package com.adaci.medical.enotebookbackend.controllers;
 
-import com.adaci.medical.enotebookbackend.models.RegisterData;
+import com.adaci.medical.enotebookbackend.payloads.LoginDataPayload;
+import com.adaci.medical.enotebookbackend.payloads.RegisterDataPayload;
 import com.adaci.medical.enotebookbackend.exceptions.ResourceNotFoundException;
 import com.adaci.medical.enotebookbackend.models.CompteUtilisateur;
 import com.adaci.medical.enotebookbackend.models.Patient;
@@ -17,32 +18,36 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(name = "User APi", value = "api/v1/users")
 public class CompteUtilisateurController {
 
-    @Autowired
-    private CompteUtilisateurService compteUtilisateurService;
+    private final CompteUtilisateurService compteUtilisateurService;
+
+    private final PatientService patientService;
 
     @Autowired
-    private PatientService patientService;
+    public CompteUtilisateurController(CompteUtilisateurService compteUtilisateurService, PatientService patientService) {
+        this.compteUtilisateurService = compteUtilisateurService;
+        this.patientService = patientService;
+    }
 
     @PostMapping("/login")
-    private ResponseEntity<CompteUtilisateur> login(@RequestBody @Valid RegisterData registerData) throws ResourceNotFoundException {
-        return ResponseEntity.ok(compteUtilisateurService.connexionUtilisateur(registerData.getLogin(), registerData.getPassword()));
+    private ResponseEntity<CompteUtilisateur> login(@RequestBody @Valid LoginDataPayload loginDataPayload) throws ResourceNotFoundException {
+        return ResponseEntity.ok(compteUtilisateurService.connexionUtilisateur(loginDataPayload.getLogin(), loginDataPayload.getPassword()));
     }
 
     @PostMapping("/register")
-    private ResponseEntity<CompteUtilisateur> register(@RequestBody @Valid RegisterData registerData) {
+    private ResponseEntity<CompteUtilisateur> register(@RequestBody @Valid RegisterDataPayload registerDataPayload) {
         try {
             //Creation du patient
             Patient patient = new Patient();
-            patient.setNom(registerData.getNom());
-            patient.setPrenoms(registerData.getPrenom());
-            patient.setTel1(registerData.getTel());
+            patient.setNom(registerDataPayload.getNom());
+            patient.setPrenoms(registerDataPayload.getPrenom());
+            patient.setTel1(registerDataPayload.getTel());
             Patient patientCreate = patientService.create(patient);
 
             //Creation du compte utilisateur
             CompteUtilisateur compteUtilisateur = new CompteUtilisateur();
-            compteUtilisateur.setLogin(registerData.getLogin());
-            compteUtilisateur.setPassword(registerData.getPassword());
-            compteUtilisateur.setTypeCompte(registerData.getTypeCompte());
+            compteUtilisateur.setLogin(registerDataPayload.getLogin());
+            compteUtilisateur.setPassword(registerDataPayload.getPassword());
+            compteUtilisateur.setTypeCompte(registerDataPayload.getTypeCompte());
             compteUtilisateur.setPersonne(patientCreate);
 
             return new ResponseEntity<>(compteUtilisateurService.create(compteUtilisateur), HttpStatus.CREATED);

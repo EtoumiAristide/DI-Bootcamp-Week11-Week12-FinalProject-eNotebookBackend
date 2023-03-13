@@ -1,10 +1,13 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.adaci.medical.enotebookbackend.enums.PersonnelMedicalType;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -29,13 +32,19 @@ public class Medecin extends Physique implements Serializable {
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     @JsonIgnore
     private Date createdAt;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
     @JsonIgnore
     private Date updatedAt;
+
+    @Column(name = "personel_medical_type", columnDefinition = "VARCHAR")
+    @Enumerated(EnumType.STRING)
+    private PersonnelMedicalType personnelMedicalType;
 
     public Medecin(String tel1, String tel2, String tel3, String email, String nom, String prenoms, Date dateNaissance, String lieuNaissance, String nomPrenomPere, String nomPrenomMere, String nomPersonneUrgence, String contactPersonneUrgence, String matricule, Date datePriseService) {
         super(tel1, tel2, tel3, email, nom, prenoms, dateNaissance, lieuNaissance, nomPrenomPere, nomPrenomMere, nomPersonneUrgence, contactPersonneUrgence);

@@ -1,5 +1,6 @@
 package com.adaci.medical.enotebookbackend.models;
 
+import com.adaci.medical.enotebookbackend.enums.CompteType;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +24,9 @@ public class TypeCompte implements Serializable {
 
     @NotNull(message = "Le libéllé du type de compte est obligatoire")
     @NotBlank(message = "Le libéllé du type de compte ne peut être vide")
-    private String libelle;
+    @Column(name = "libelle", columnDefinition = "VARCHAR")
+    @Enumerated(EnumType.STRING)
+    private CompteType libelle;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -37,5 +40,6 @@ public class TypeCompte implements Serializable {
 
     @OneToMany(mappedBy = "typeCompte", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private List<CompteUtilisateur> compteUtilisateurList;
 }

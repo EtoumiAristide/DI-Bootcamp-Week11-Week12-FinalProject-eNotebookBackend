@@ -32,6 +32,8 @@ public class Specialite implements Serializable {
     @NotBlank(message = "Le libéllé de la spécialité ne peut être vide")
     private String libelle;
 
+    private String description;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonIgnore

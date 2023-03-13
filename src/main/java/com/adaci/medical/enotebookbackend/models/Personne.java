@@ -50,11 +50,12 @@ public abstract class Personne implements Serializable {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "personne", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
     private List<Adresse> adresseList;
 
     @OneToMany(mappedBy = "personne", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private List<CompteUtilisateur> compteUtilisateurList;
 
     public Personne(String tel1, String tel2, String tel3, String email) {
